@@ -1,21 +1,20 @@
-package error_test
+package errs_test
 
 import (
 	"errors"
 	"fmt"
 	"testing"
 
-	// Aliased because this test file uses the builtin error type ([]error); a
-	// dedicated sentinel file with no builtin-error usage imports it bare as error.
-	xerror "github.com/gomatic/go-error"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/gomatic/go-error"
 )
 
 // Consumer-side sentinels: the library ships no values, so the test declares its
 // own exactly as a real consumer would.
 const (
-	errSentinel xerror.Const = "sentinel failed"
-	errOther    xerror.Const = "other"
+	errSentinel errs.Const = "sentinel failed"
+	errOther    errs.Const = "other"
 )
 
 func TestErrorImplementsError(t *testing.T) {
@@ -37,11 +36,11 @@ func TestConstWith(t *testing.T) {
 	cause := errors.New("disk full")
 
 	tests := []struct {
-		name        string
 		cause       error
+		name        string
+		wantMessage string
 		args        []any
 		wantIs      []error
-		wantMessage string
 	}{
 		{
 			name:        "sentinel only",

@@ -1,4 +1,4 @@
-// Package error provides the ecosystem's sentinel-error mechanism: a single
+// Package errs provides the ecosystem's sentinel-error mechanism: a single
 // string-backed error type whose constants are matchable with errors.Is, never
 // by string comparison. This library owns the mechanism; every consumer declares
 // its own error values as constants of [Const] and keeps them in its own repo.
@@ -6,7 +6,7 @@
 // Because the package is named error, import it bare in a dedicated sentinel file
 // (which declares consts and uses no builtin error type), so declarations read
 // error.Const; files that also use the builtin error type should alias the import.
-package error
+package errs
 
 import (
 	"fmt"
