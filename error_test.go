@@ -1,26 +1,27 @@
-package errs_test
+package error_test
 
 import (
 	"errors"
 	"fmt"
 	"testing"
 
-	errs "github.com/skykernel/go-error"
+	// Aliased because this test file uses the builtin error type ([]error); a
+	// dedicated sentinel file with no builtin-error usage imports it bare as error.
+	xerror "github.com/gomatic/go-error"
 	"github.com/stretchr/testify/assert"
 )
 
 // Consumer-side sentinels: the library ships no values, so the test declares its
 // own exactly as a real consumer would.
 const (
-	errSentinel errs.Error = "sentinel failed"
-	errOther    errs.Error = "other"
+	errSentinel xerror.Const = "sentinel failed"
+	errOther    xerror.Const = "other"
 )
 
 func TestErrorImplementsError(t *testing.T) {
 	t.Parallel()
 	want := assert.New(t)
 	want.Equal("sentinel failed", errSentinel.Error())
-	// Usable anywhere an error is expected, and still matchable once wrapped.
 	want.EqualError(fmt.Errorf("%w", errSentinel), "sentinel failed")
 }
 
@@ -31,7 +32,7 @@ func TestErrorIs(t *testing.T) {
 	want.NotErrorIs(errOther, errSentinel)
 }
 
-func TestErrorWith(t *testing.T) {
+func TestConstWith(t *testing.T) {
 	t.Parallel()
 	cause := errors.New("disk full")
 

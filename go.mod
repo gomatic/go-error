@@ -1,4 +1,4 @@
-module github.com/skykernel/go-error
+module github.com/gomatic/go-error
 
 go 1.26.4
 
