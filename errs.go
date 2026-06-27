@@ -3,9 +3,10 @@
 // by string comparison. This library owns the mechanism; every consumer declares
 // its own error values as constants of [Const] and keeps them in its own repo.
 //
-// Because the package is named error, import it bare in a dedicated sentinel file
-// (which declares consts and uses no builtin error type), so declarations read
-// error.Const; files that also use the builtin error type should alias the import.
+// The package is named errs (the predeclared identifier error cannot be a
+// package name), and the type is Const to avoid stutter, so declarations read
+// errs.Const — e.g. const ErrFoo errs.Const = "foo failed" — and wrapping reads
+// errs.Const.With(cause, args...).
 package errs
 
 import (
