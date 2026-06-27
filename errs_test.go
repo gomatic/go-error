@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/gomatic/go-error"
+	errs "github.com/gomatic/go-error"
 )
 
 // Consumer-side sentinels: the library ships no values, so the test declares its
